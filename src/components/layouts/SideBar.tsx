@@ -45,14 +45,14 @@ const SideBar: React.FC<Props> = ({ allPostSlugs }) => {
               <Typography variant="body1">Languages</Typography>
             </ListItemText>
           </ListItemButton>
-          <Collapse in={pagesOpen} timeout="auto" unmountOnExit>
+          <Collapse in={languageOpen} timeout="auto" unmountOnExit>
             <List component="div" disablePadding className="wovn-languages">
-              <ListItemButton sx={{ pl: 4 }}>
+              <ListItemButton sx={{ pl: 10 }}>
                 <ListItemText data-value="en" className="wovn-switch">
                   English
                 </ListItemText>
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }}>
+              <ListItemButton sx={{ pl: 10 }}>
                 <ListItemText data-value="ja" className="wovn-switch">
                   Japanese
                 </ListItemText>
