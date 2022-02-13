@@ -1,0 +1,26 @@
+version: '3'
+services:
+  webserver:
+    image: node:14.17.6
+    container_name: wovn-testing-site
+    hostname: script.killinsun.com
+    ports:
+      - 3000:80
+    env_file: .env
+    tty: true
+    volumes:
+      - app-vol:/vol
+    networks:
+        - ssl-proxy
+    command: bash -c "cd /src && npm install && npm start"
+
+networks:
+  ssl-proxy:
+    external: true
+
+volumes:
+  app-vol:
+    driver_opts:
+      type: none
+      device: /usr/local/share/docker-compose/wovn-testing-site
+      o: bind
