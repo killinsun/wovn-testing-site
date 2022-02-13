@@ -5,7 +5,7 @@ services:
     container_name: wovn-testing-site
     hostname: script.killinsun.com
     ports:
-      - 3000:80
+      - 3001:80
     env_file: .env
     tty: true
     volumes:
