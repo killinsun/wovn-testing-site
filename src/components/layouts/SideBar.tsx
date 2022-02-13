@@ -1,11 +1,9 @@
 import {
   Collapse,
-  List,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
-  MenuItem,
-  MenuList,
+  ListItemButton,
+  List,
   Typography,
 } from '@mui/material';
 import ArticleIcon from '@mui/icons-material/ArticleOutlined';
@@ -24,29 +22,43 @@ type Props = {
 };
 
 const SideBar: React.FC<Props> = ({ allPostSlugs }) => {
-  const [open, setOpen] = useState(true);
+  const [pagesOpen, setPagesOpen] = useState(true);
+  const [languageOpen, setLanguageOpen] = useState(true);
 
-  const handleClick = () => {
-    setOpen(!open);
+  const handlePagesClick = () => {
+    setPagesOpen(!pagesOpen);
+  };
+
+  const handleLanguagesClick = () => {
+    setLanguageOpen(!languageOpen);
   };
 
   return (
     <nav className={styles.navigation}>
       <section className={styles.languages}>
-        <MenuList>
-          <MenuItem>
+        <List>
+          <ListItemButton onClick={handleLanguagesClick}>
             <ListItemIcon>
               <LanguageOutlinedIcon />
             </ListItemIcon>
             <ListItemText>
               <Typography variant="body1">Languages</Typography>
             </ListItemText>
-          </MenuItem>
-        </MenuList>
+          </ListItemButton>
+          <Collapse in={pagesOpen} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding className="wovn-languages">
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemText className="wovn-switch-template">
+                  wovn-lang-name
+                </ListItemText>
+              </ListItemButton>
+            </List>
+          </Collapse>
+        </List>
       </section>
       <section className={styles.menu}>
         <List>
-          <ListItemButton onClick={handleClick}>
+          <ListItemButton onClick={handlePagesClick}>
             <ListItemIcon>
               <MenuBookOutlinedIcon />
             </ListItemIcon>
@@ -54,7 +66,7 @@ const SideBar: React.FC<Props> = ({ allPostSlugs }) => {
               <Typography variant="body1">Pages</Typography>
             </ListItemText>
           </ListItemButton>
-          <Collapse in={open} timeout="auto" unmountOnExit>
+          <Collapse in={pagesOpen} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               {allPostSlugs &&
                 allPostSlugs.map((value) => (
