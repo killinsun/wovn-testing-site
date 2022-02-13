@@ -1,0 +1,17 @@
+nav.navigation{
+  background-color: #73613e;
+  color: #f2df98;
+  padding: 1.45rem;
+  position: sticky;
+  top: 0px;
+  min-height: 100vh;
+}
+
+.menuList {
+  list-style: none;
+
+}
+
+.menuListItem li a {
+  text-decoration: none;
+}

@@ -1,0 +1,11 @@
+.container {
+  width: 100%;
+  height: 100%;
+  max-width:none;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.mainContent {
+  padding-left: 2rem;
+}
