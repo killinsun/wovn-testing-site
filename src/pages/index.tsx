@@ -1,6 +1,6 @@
+import { Typography } from '@mui/material';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Link from 'next/link';
 import Layout from '../components/layouts/Layout';
 import getAllPostSlugs from '../libs/posts';
 import styles from '../styles/Home.module.css';
@@ -22,9 +22,17 @@ const Home: NextPage<PageProps> = ({ allPostSlugs }: PageProps) => (
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h2>TOP Page</h2>
-      {allPostSlugs.map((value) => (
-        <Link href={`/posts/${value.params.slug}`}>{value.params.slug}</Link>
-      ))}
+      <Typography variant="body1">
+        プロジェクトディレクトリ直下の posts ディレクトリに html
+        ファイルを作成してコミットすると自動でページをはやしてくれる。
+      </Typography>
+      <Typography variant="body1">
+        WOVN タグは src/components/layouts/Layout.tsx に挿入している。
+      </Typography>
+      <Typography variant="body1">
+        独自言語切替ウィジェットは src/components/layouts/SideBar.tsx
+        に。複雑になったらコンポーネントを分ける。
+      </Typography>
     </Layout>
   </div>
 );
