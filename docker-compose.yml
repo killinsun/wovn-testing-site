@@ -12,7 +12,7 @@ services:
       - app-vol:/vol
     networks:
         - ssl-proxy
-    command: bash -c "cd /src && npm install && npm start"
+    command: bash -c "cd /vol && yarn && yarn build && yarn start"
 
 networks:
   ssl-proxy:
