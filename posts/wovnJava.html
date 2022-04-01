@@ -1,0 +1,807 @@
+<p>
+  WOVN Javaライブラリは Java アプリケーションで WOVN
+  ライブラリ方式の翻訳を実現するライブラリです。WOVN Javaライブラリは Servlet
+  Filter として実装されています。
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>目次</h2>
+<ul>
+  <li>
+    <a href="#h_dda624fc-1ebf-4081-be44-d212152797ed" target="_self"
+      >動作要件</a
+    >
+  </li>
+  <li>
+    <a href="#h_d1c2a83c-5757-4cbe-934d-5e1287ddf1c4" target="_self"
+      >ライブラリ方式の動作概要</a
+    >
+  </li>
+  <li>
+    <a href="#h_38cf7254-07f4-4701-a59c-f740cae31a14" target="_self"
+      >インストール手順</a
+    >
+  </li>
+  <li>
+    <a href="#java-parameter" target="_self">設定オプション</a>
+  </li>
+  <li>
+    <a href="#h_da9f06f0-2057-4e6b-856c-208aee72f1a3" target="_self"
+      >動作不具合に関するお問い合わせ</a
+    >
+  </li>
+</ul>
+<hr />
+<h2>動作要件</h2>
+<p>
+  &nbsp;別紙記載の<a
+    href="/hc/ja/articles/360039172431"
+    target="_blank"
+    rel="noopener"
+    >ライブラリ方式動作要件</a
+  >を確認してください。
+</p>
+<p>&nbsp;</p>
+<hr />
+<h2>ライブラリ方式の動作概要</h2>
+<p>
+  ライブラリ方式の動作概要は<a
+    href="/hc/ja/articles/360038783412"
+    target="_self"
+    >こちら</a
+  >からご確認下さい。
+</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<hr />
+<h2 id="h_38cf7254-07f4-4701-a59c-f740cae31a14">​インストール手順</h2>
+<h3>翻訳ページの追加</h3>
+<p>
+  <a href="https://wovn.io/ja/">ログイン</a>してください。​
+  翻訳したいページを追加します。
+</p>
+<p>&nbsp;</p>
+<h3>Java アプリケーションの設定(Mavenによる設定)</h3>
+<p class="information">
+  <span class="information-title"> Maven以外をご利用場合</span> Maven
+  以外の環境をお使いの場合は、<br />
+  <a href="https://jitpack.io/#wovnio/wovnjava" target="_blank" rel="noopener"
+    >こちらの設定方法をご覧ください。</a
+  ><span></span>
+</p>
+<p>&nbsp;</p>
+<p>
+  本ライブラリを組み込むアプリケーションの pom.xml に、JitPack
+  のリポジトリを追加してください。
+</p>
+<pre><code class="language-xml line-numbers">&lt;<span class="pl-ent">repositories</span>&gt;
+  &lt;<span class="pl-ent">repository</span>&gt;
+    &lt;<span class="pl-ent">id</span>&gt;jitpack.io&lt;/<span class="pl-ent">id</span>&gt;
+    &lt;<span class="pl-ent">url</span>&gt;https://jitpack.io&lt;/<span class="pl-ent">url</span>&gt;
+    &lt;<span class="pl-ent">snapshots</span>&gt;
+      &lt;<span class="pl-ent">enabled</span>&gt;true&lt;/<span class="pl-ent">enabled</span>&gt;
+      &lt;<span class="pl-ent">updatePolicy</span>&gt;always&lt;/<span class="pl-ent">updatePolicy</span>&gt;
+    &lt;/<span class="pl-ent">snapshots</span>&gt;
+  &lt;/<span class="pl-ent">repository</span>&gt;
+&lt;/<span class="pl-ent">repositories</span>&gt;</code></pre>
+<p>
+  アプリケーションの
+  <code>pom.xml</code> の依存関係に、本ライブラリを追加してください。&nbsp;
+</p>
+<pre><code class="language-xml line-numbers">&lt;<span class="pl-ent">dependency</span>&gt;
+  &lt;<span class="pl-ent">groupId</span>&gt;com.github.wovnio&lt;/<span class="pl-ent">groupId</span>&gt;
+  &lt;<span class="pl-ent">artifactId</span>&gt;wovnjava&lt;/<span class="pl-ent">artifactId</span>&gt;
+  &lt;<span class="pl-ent">version</span>&gt;x.x.x&lt;/<span class="pl-ent">version</span>&gt;
+&lt;/<span class="pl-ent">dependency</span>&gt;</code></pre>
+<p>
+  <span
+    style="
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
+        Arial, sans-serif;
+    "
+    ><a
+      href="https://jitpack.io/#wovnio/wovnjava"
+      target="_blank"
+      rel="noopener"
+      >使用可能なライブラリのバージョン</a
+    >はこちらのページで確認できます。&nbsp;</span
+  >
+</p>
+<p>&nbsp;</p>
+<p>
+  ライブラリの設定をアプリケーションの
+  <code>web.xml</code> に記述してください。<br />
+  <span
+    style="
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
+        Arial, sans-serif;
+    "
+    >必須パラメータは以下の通りです。</span
+  >
+</p>
+<ul>
+  <li>projectToken</li>
+  <li>defaultLang</li>
+  <li>supportedLangs</li>
+  <li>urlPattern</li>
+</ul>
+<p>
+  設定したパラメータと作成したWOVNプロジェクトが正しく一致している必要がありますのでご注意下さい。
+</p>
+<h4>設定サンプル</h4>
+<p>
+  以下は、元言語が日本語で、翻訳言語が英語の場合のサンプルです。<br />
+  また、プロジェクトトークンは　123abc が払い出されたものとしています。
+</p>
+<pre><code class="language-xml line-numbers">&lt;<span class="pl-ent">filter</span>&gt;
+  &lt;<span class="pl-ent">filter-name</span>&gt;wovn&lt;/<span class="pl-ent">filter-name</span>&gt;
+  &lt;<span class="pl-ent">filter-class</span>&gt;com.github.wovnio.wovnjava.WovnServletFilter&lt;/<span class="pl-ent">filter-class</span>&gt;
+  &lt;<span class="pl-ent">init-param</span>&gt;
+    &lt;<span class="pl-ent">param-name</span>&gt;projectToken&lt;/<span class="pl-ent">param-name</span>&gt;
+    &lt;<span class="pl-ent">param-value</span>&gt;123abc&lt;/<span class="pl-ent">param-value</span>&gt;
+  &lt;/<span class="pl-ent">init-param</span>&gt;
+  &lt;<span class="pl-ent">init-param</span>&gt;
+    &lt;<span class="pl-ent">param-name</span>&gt;defaultLang&lt;/<span class="pl-ent">param-name</span>&gt;
+    &lt;<span class="pl-ent">param-value</span>&gt;ja&lt;/<span class="pl-ent">param-value</span>&gt;
+  &lt;/<span class="pl-ent">init-param</span>&gt;
+  &lt;<span class="pl-ent">init-param</span>&gt;
+    &lt;<span class="pl-ent">param-name</span>&gt;supportedLangs&lt;/<span class="pl-ent">param-name</span>&gt;
+    &lt;<span class="pl-ent">param-value</span>&gt;ja,en&lt;/<span class="pl-ent">param-value</span>&gt;
+  &lt;/<span class="pl-ent">init-param</span>&gt;
+  &lt;<span class="pl-ent">init-param</span>&gt;
+    &lt;<span class="pl-ent">param-name</span>&gt;urlPattern&lt;/<span class="pl-ent">param-name</span>&gt;
+    &lt;<span class="pl-ent">param-value</span>&gt;path&lt;/<span class="pl-ent">param-value</span>&gt;
+  &lt;/<span class="pl-ent">init-param</span>&gt;
+&lt;/<span class="pl-ent">filter</span>&gt;
+
+&lt;<span class="pl-ent">filter-mapping</span>&gt;
+  &lt;<span class="pl-ent">filter-name</span>&gt;wovn&lt;/<span class="pl-ent">filter-name</span>&gt;
+  &lt;<span class="pl-ent">url-pattern</span>&gt;/*&lt;/<span class="pl-ent">url-pattern</span>&gt;
+  &lt;<span class="pl-ent">dispatcher</span>&gt;REQUEST&lt;/<span class="pl-ent">dispatcher</span>&gt;
+  &lt;<span class="pl-ent">dispatcher</span>&gt;FORWARD&lt;/<span class="pl-ent">dispatcher</span>&gt;
+&lt;/<span class="pl-ent">filter-mapping</span>&gt;</code></pre>
+<section>
+  <p>&nbsp;</p>
+  <hr />
+  <h2 id="java-parameter">設定オプション</h2>
+  <table class="table" style="height: 408px; width: 602px">
+    <thead>
+      <tr style="height: 47.8438px">
+        <th
+          class="wysiwyg-text-align-center"
+          style="width: 251px; height: 47.8438px"
+        >
+          <strong>パラメータ名</strong>
+        </th>
+        <th
+          class="wysiwyg-text-align-center"
+          style="width: 199px; height: 47.8438px"
+        >
+          <strong>必須</strong>
+        </th>
+        <th
+          class="wysiwyg-text-align-center"
+          style="width: 152px; height: 47.8438px"
+        >
+          <strong>デフォルト設定</strong>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="height: 21px">
+        <td style="width: 251px; height: 21px">defaultLang</td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 199px; height: 21px"
+        >
+          yes
+        </td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 152px; height: 21px"
+        >
+          &nbsp;
+        </td>
+      </tr>
+      <tr style="height: 21px">
+        <td style="width: 251px; height: 21px">projectToken</td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 199px; height: 21px"
+        >
+          yes
+        </td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 152px; height: 21px"
+        >
+          &nbsp;
+        </td>
+      </tr>
+      <tr style="height: 21px">
+        <td style="width: 251px; height: 21px">supportedLangs</td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 199px; height: 21px"
+        >
+          yes
+        </td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 152px; height: 21px"
+        >
+          &nbsp;
+        </td>
+      </tr>
+      <tr style="height: 21px">
+        <td style="width: 251px; height: 21px">urlPattern</td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 199px; height: 21px"
+        >
+          yes
+        </td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 152px; height: 21px"
+        >
+          &nbsp;
+        </td>
+      </tr>
+      <tr style="height: 21px">
+        <td style="width: 251px; height: 21px">customDomainLangs</td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 199px; height: 21px"
+        >
+          &nbsp;
+        </td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 152px; height: 21px"
+        >
+          &nbsp;
+        </td>
+      </tr>
+      <tr style="height: 21px">
+        <td style="width: 251px; height: 21px">debugMode</td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 199px; height: 21px"
+        >
+          &nbsp;
+        </td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 152px; height: 21px"
+        >
+          &nbsp;
+        </td>
+      </tr>
+      <tr style="height: 21px">
+        <td style="width: 251px; height: 21px">enableFlushBuffer</td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 199px; height: 21px"
+        >
+          &nbsp;
+        </td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 152px; height: 21px"
+        >
+          false
+        </td>
+      </tr>
+      <tr style="height: 21px">
+        <td style="width: 251px; height: 21px">ignoreClasses</td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 199px; height: 21px"
+        >
+          &nbsp;
+        </td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 152px; height: 21px"
+        >
+          &nbsp;
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 251px">
+          <span>ignorePaths</span>
+        </td>
+        <td style="width: 199px">&nbsp;</td>
+        <td style="width: 152px">&nbsp;</td>
+      </tr>
+      <tr style="height: 21px">
+        <td style="width: 251px; height: 21px">langCodeAliases</td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 199px; height: 21px"
+        >
+          &nbsp;
+        </td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 152px; height: 21px"
+        >
+          &nbsp;
+        </td>
+      </tr>
+      <tr style="height: 21px">
+        <td style="width: 251px; height: 21px">originalQueryStringHeader</td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 199px; height: 21px"
+        >
+          &nbsp;
+        </td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 152px; height: 21px"
+        >
+          &nbsp;
+        </td>
+      </tr>
+      <tr style="height: 21px">
+        <td style="width: 251px; height: 21px">originalUrlHeader</td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 199px; height: 21px"
+        >
+          &nbsp;
+        </td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 152px; height: 21px"
+        >
+          &nbsp;
+        </td>
+      </tr>
+      <tr style="height: 21px">
+        <td style="width: 251px; height: 21px">sitePrefixPath</td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 199px; height: 21px"
+        >
+          &nbsp;
+        </td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 152px; height: 21px"
+        >
+          &nbsp;
+        </td>
+      </tr>
+      <tr style="height: 21px">
+        <td style="width: 251px; height: 21px">useProxy</td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 199px; height: 21px"
+        >
+          &nbsp;
+        </td>
+        <td
+          class="wysiwyg-text-align-center"
+          style="width: 152px; height: 21px"
+        >
+          false
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p>&nbsp;</p>
+  <h3>
+    <span
+      style="
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
+          Arial, sans-serif;
+      "
+      >projectToken</span
+    >
+  </h3>
+  <p>
+    WOVN
+    アカウントのプロジェクトトークンを設定します。対象プロジェクトの「プロジェクト情報」タブ画面に記載された「Project
+    token」の値をコピーして使用してください。
+  </p>
+  <p>※ このパラメータは必須です。</p>
+  <h3>defaultLang</h3>
+  <p>
+    対象の Webサイトが使用する元言語です。<br />
+    このパラメータは 2文字からなる言語コードで記入します。<br />
+    対応言語コードの一覧は<a
+      href="/hc/ja/articles/360007709372"
+      target="_blank"
+      rel="noopener"
+      >こちら</a
+    >からご確認ください。
+  </p>
+  <h3>supportedLangs</h3>
+  <p>
+    WOVNプロジェクトで設定した翻訳言語を記述します。元言語は自動的にこのリストに追加されます。
+  </p>
+  <p>このパラメータは、カンマ区切りで言語コードを指定します。</p>
+  <p>例：en, zh-CHT, zh-CHS</p>
+  <h3>urlPattern</h3>
+  <p>
+    ライブラリは Javaアプリケーションに対し、翻訳ページ用の新しい URL
+    を追加します。urlPattern パラメータでは、この URL
+    のタイプを設定できます。URL のタイプには下記の3種類があります。
+  </p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>パターンタイプ</th>
+        <th>言語切替後のURL</th>
+        <th>概要</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>"path"</td>
+        <td>
+          <a href="https://wovn.io/ko/contact" rel="nofollow"
+            >https://wovn.io/ko/contact</a
+          >
+        </td>
+        <td>パスの先頭に言語コードが挿入されます</td>
+      </tr>
+      <tr>
+        <td>"subdomain"</td>
+        <td>
+          <a href="https://ko.wovn.io/contact" rel="nofollow"
+            >https://ko.wovn.io/contact</a
+          >
+        </td>
+        <td>
+          <p>
+            サブドメインに言語コードが挿入されます。<br />
+            このタイプは対応するDNS設定が必須です。
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>"query"</td>
+        <td>
+          <a href="https://wovn.io/contact?wovn=ko" rel="nofollow"
+            >https://wovn.io/contact?wovn=ko</a
+          >
+        </td>
+        <td>
+          URLのクエリパラメータに言語コードが挿入されます。<br />
+          このタイプは対象サイトへの影響が最小限で済みます。
+        </td>
+      </tr>
+      <tr>
+        <td>"customDomain"</td>
+        <td>
+          <p>ページ下部をご参照下さい</p>
+        </td>
+        <td>
+          このタイプは、お客様で定義したドメインとパスを言語毎に独立して設定する事が出来ます。
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <h3>useProxy</h3>
+  <p>
+    リバースプロキシ使用時は WOVN Javaライブラリ
+    に適切なホスト名が渡されず、翻訳ページのデータを取得できない場合があります。
+    <code>useProxy</code> に <code>true</code> を設定すると、WOVN Javaライブラリ
+    の処理に HTTP リクエストヘッダの X-Forwarded-Host を使用します。
+  </p>
+  <p>使用方法は以下の通りです。</p>
+  <pre><code class="language-java line-numbers">&lt;<span class="pl-ent">init-param</span>&gt;
+  &lt;<span class="pl-ent">param-name</span>&gt;useProxy&lt;/<span class="pl-ent">param-name</span>&gt;
+  &lt;<span class="pl-ent">param-value</span>&gt;true&lt;/<span class="pl-ent">param-value</span>&gt;
+&lt;/<span class="pl-ent">init-param</span>&gt;</code></pre>
+  <h3>originalUrlHeader, originalQueryStringHeader</h3>
+  <p>
+    Apache HTTP Server の mod_rewrite モジュールなどを使用して URL
+    を書き換えている場合、WOVN Javaライブラリ には書き換え前の URL
+    が渡されず、適切な翻訳データを取得できない場合があります。<code>originalUrlHeader</code>、<code
+      >originalQueryStringHeader</code
+    >
+    を設定した場合、WOVN Javaライブラリ
+    はこれらに設定されたリクエストヘッダの値を翻訳データの取得に利用します。
+  </p>
+  <p>
+    下記の Apache HTTP Server の設定で、書き換え前の URL
+    をリクエストヘッダに設定した場合、
+  </p>
+  <pre><code>SetEnvIf Request_URI "^(.*)$" REQUEST_URI=$1
+RequestHeader set X-Request-Uri "%{REQUEST_URI}e"
+RewriteRule .* - [E=REQUEST_QUERY_STRING:%{QUERY_STRING}]
+RequestHeader set X-Query-String "%{REQUEST_QUERY_STRING}e"</code></pre>
+  <p>
+    WOVN Javaライブラリ は下記の設定で書き換え前の URL
+    を使って、正しい翻訳データを取得できます。
+  </p>
+  <pre><code class="language-xml line-numbers">&lt;filter&gt;
+  ...
+  &lt;init-param&gt;
+    &lt;param-name&gt;originalUrlHeader&lt;/param-name&gt;
+    &lt;param-value&gt;X-Request-Uri&lt;/param-value&gt;
+  &lt;/init-param&gt;
+  &lt;init-param&gt;
+    &lt;param-name&gt;originalQueryStringHeader&lt;/param-name&gt;
+    &lt;param-value&gt;X-Query-String&lt;/param-value&gt;
+  &lt;/init-param&gt;
+  ...
+&lt;/filter&gt;</code></pre>
+  <p>
+    ※ 上記のリクエストヘッダ設定のサンプルは、下記ページから引用しています。
+  </p>
+  <a
+    href="https://coderwall.com/p/jhkw7w/passing-request-uri-into-request-header"
+    target="_blank"
+    rel="noopener noreferrer"
+    >https://coderwall.com/p/jhkw7w/passing-request-uri-into-request-heade</a
+  >
+  <p>&nbsp;</p>
+</section>
+<section></section>
+<h3>ignoreClasses</h3>
+<section>
+  WOVN 送信したくない値を持つ
+  HTML要素に付与されているクラスを、このパラメータにカンマ区切りで指定する事で翻訳除外とする事が出来ます。
+</section>
+<section></section>
+<section>
+  無視された要素と内容は WOVN
+  Javaライブラリに送信される事はありません。また、WOVNへ送信されて翻訳される事もありません。
+</section>
+<section></section>
+<section>
+  以下は、 <code>my-select-class</code> クラスを持つ HTMLタグです。
+</section>
+<section>
+  <pre><code class="language-html line-numbers">&lt;<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>my-secret-class<span class="pl-pds">"</span></span>&gt;Some information WOVN does not touch&lt;/<span class="pl-ent">p</span>&gt;
+&lt;/<span class="pl-ent">div</span>&gt;</code></pre>
+  上記タグは、<code>my-secret-class</code>を<code>ignoreClasses</code>に登録する事でWOVN
+  Javaライブラリは以下の様に取り扱います。
+</section>
+<pre><code class="language-htmlline-numbers">  &lt;<span class="pl-ent">div</span>&gt;&lt;/<span class="pl-ent">div&gt;</span></code></pre>
+<p>
+  上記のような振る舞いを　<code>my-secret-class</code>,
+  <code>email-address-element</code>,
+  <code>noshow</code> クラスに対して行う場合は以下の様に設定します。
+</p>
+<pre><code class="language-html line-numbers">&lt;<span class="pl-ent">init-param</span>&gt;
+  &lt;<span class="pl-ent">param-name</span>&gt;ignoreClasses&lt;/<span class="pl-ent">param-name</span>&gt;
+  &lt;<span class="pl-ent">param-value</span>&gt;email-address-element,my-secret-class,noshow&lt;/<span class="pl-ent">param-value</span>&gt;
+&lt;/<span class="pl-ent">init-param</span>&gt;</code></pre>
+<p>&nbsp;</p>
+<h3>enableFlushBuffer</h3>
+<p>
+  <code>ServletResponse.flushBuffer().</code>
+  が定義されている場合の設定オプションです。
+</p>
+<p>
+  このパラメータはデフォルトで <code>false</code> にセットされています（推奨）
+</p>
+<p>
+  <code>enableFlushBuffer</code>が<code>false</code>にセットされている場合、WOVN
+  Javaライブラリはクライアントに対するコンテンツの書き込みを行う事無く、<code>response.flushBuffer()</code>の呼び出しを取得します。
+</p>
+<p>
+  完全な
+  HTMLレスポンスの準備が出来た段階でフィルターはコンテンツを翻訳し、クライアントへレスポンスを返却します。
+</p>
+<h3>langCodeAliases</h3>
+<p>
+  このパラメーターを使うことで、WOVN
+  で設定している言語が持つ言語コードに任意のエイリアスを設定することが出来ます。
+</p>
+<p>&nbsp;</p>
+<p>
+  例えば、デフォルト設定では英語の言語コードは<code>en</code>になっています。その為、英語ページにアクセスする際のURLは<code>https://example.com/en/page</code>のようになります。<code>langCodeAliases</code>を使うと、受け付ける言語コードを<code>en</code>ではなく<code>us</code>のように置き換える事ができます。この場合の
+  URL は<code>https://example.com/us/page</code>になります。
+</p>
+<p>
+  このパラメーターはパス形式、クエリ形式、サブドメイン形式の全てでご利用いただけます。
+</p>
+<p>設定は下記フォーマットに従ってください。</p>
+<pre><code class="language-java line-numbers">FORMAT: &lt;langCode&gt;:&lt;alias&gt;,&lt;langCode&gt;:&lt;alias&gt;,...
+
+EXAMPLE: ja:japan,en:us</code></pre>
+<p>web.xmlファイルに記載する際は下記の通りです。</p>
+<pre><code class="language-xml line-numbers">&lt;<span class="pl-ent">init-param</span>&gt;
+  &lt;<span class="pl-ent">param-name</span>&gt;langCodeAliases&lt;/<span class="pl-ent">param-name</span>&gt;
+  &lt;<span class="pl-ent">param-value</span>&gt;ja:japan,en:us&lt;/<span class="pl-ent">param-value</span>&gt;
+&lt;/<span class="pl-ent">init-param</span>&gt;</code></pre>
+<h4>デフォルト言語へのエイリアス</h4>
+<p>
+  WOVNの導入に関係なく、元々言語コードを含むディレクトリパスの中に既存コンテンツが存在する場合、デフォルト言語にエイリアスを設定することが出来ます。
+</p>
+<p>
+  このパス、またはサブドメインを言語コードとしてWovnServlertFilterに処理させることが出来ます。
+</p>
+<p>
+  例えば、翻訳したいコンテンツが<code>https://example.com/jp/*</code>
+  にあり、このサイトの元言語は日本語の場合、
+</p>
+<p>
+  <code>https://example.com/jp/home.html</code>が<code
+    >https://example.com/en/home.html</code
+  >
+  になる様に英語の翻訳コンテンツURLで<code>/jp/</code>を<code>/en/</code>に変更する必要があります。
+</p>
+<p>jpを日本語のエイリアスとして設定することで対応が可能です。</p>
+<p>&nbsp;</p>
+<h3>sitePrefixPath</h3>
+<p>
+  このパラメーターを使う事で、WOVN
+  がページを変換するアンカーとして使用するプレフィックスパスを設定できます。
+  この設定では、WOVN
+  はプレフィックスパスに一致するページのみを変換し、パス言語コードがプレフィックスパスの後に追加されます。
+</p>
+<p>
+  以下は <code>sitePrefix</code>　に
+  <code>city</code> を設定した場合のサンプルです。
+</p>
+<pre><code class="language-java line-numbers">&lt;<span class="pl-ent">init-param</span>&gt;
+  &lt;<span class="pl-ent">param-name</span>&gt;sitePrefixPath&lt;/<span class="pl-ent">param-name</span>&gt;
+  &lt;<span class="pl-ent">param-value</span>&gt;city&lt;/<span class="pl-ent">param-value</span>&gt;
+&lt;/<span class="pl-ent">init-param</span>&gt;</code></pre>
+<p>WOVN は、次に示すページURL に一致した場合のみ翻訳処理を行います。</p>
+<pre><a href="https://www.mysite.com/city/*">https://www.mysite.com/city/*</a></pre>
+<p>&nbsp;</p>
+<p>
+  例えば、URL：<code>http://www.mysite.com/city/tokyo/map.html</code
+  ><span>
+    は翻訳され、言語コードが付与された状態の URL
+    にアクセスする事が出来ます。</span
+  >
+</p>
+<p>
+  <span>例：&nbsp;</span
+  ><code>http://www.mysite.com/city/en/tokyo.map.html</code>.
+</p>
+<p>
+  WOVN
+  のデフォルトでは、ドメイン配下の全てのページが翻訳、言語コードの付与対象として動作します。
+</p>
+<h4>必須事項</h4>
+<p>
+  このパラメータは、<code>urlPattern</code>　が<code>path</code>形式の場合のみ有効です。
+</p>
+<p>
+  加えて、<code>web.xml</code>に対してWovnServletFilterに対応するフィルターマッピングで構成する事をおすすめします。
+</p>
+<p>
+  上記の例の様に、プレフィックスパスが
+  <code>city</code>
+  に設定されている場合、対応するフィルターマッピングは次の通りになります
+</p>
+<pre><code class="language-xml line-numbers">&lt;<span class="pl-ent">filter-mapping</span>&gt;
+  &lt;<span class="pl-ent">filter-name</span>&gt;wovn&lt;/<span class="pl-ent">filter-name</span>&gt;
+  &lt;<span class="pl-ent">url-pattern</span>&gt;/city/*&lt;/<span class="pl-ent">url-pattern</span>&gt;
+  ...
+&lt;/<span class="pl-ent">filter-mapping</span>&gt;</code></pre>
+<h3>&nbsp;customDomainLangs</h3>
+<p>この設定は利用する言語に応じたドメイン及びパスを定義する事が出来ます。</p>
+<p>設定フォーマットとサンプルは以下の通りです。</p>
+<pre><code class="language-java line-numbers">FORMAT: &lt;baseURL&gt;:&lt;langCode&gt;,&lt;baseURL&gt;:&lt;langCode&gt;,...
+
+EXAMPLE: www.site.co.jp:ja,www.site.com/english:en
+</code></pre>
+<p>
+  <code>&lt;baseURL&gt;</code
+  >には、ホスト名とパスのみが含まれる様にして下さい。　https:// や https://
+  は必要有りません。また、ポート番号も必要ではありませんが、全てのサブドメインは正しく記載されている必要がありますのでご注意下さい。
+</p>
+<p>
+  上記の例では、www.site.co.jpに
+  対する全てのリクエストは日本語として処理されます。<br />
+  また、
+  www.site.com/english/*&nbsp;に対する全てのリクエストは英語として処理されます。
+</p>
+<p>
+  www.site.com/admin のようにドメイン言語と一致しないリクエストはWOVN
+  Javaライブラリによって処理される事はありません。
+</p>
+<p>
+  上記の構成例では、英語のページ　https://www.site.co.jp/about.html　の英語版URLは<br />
+  https://www.site.com/english/about.html&nbsp;として処理されます。
+</p>
+<p>これらに対応する　 web.xml のパラメータは以下の通りです。</p>
+<pre><code class="language-xml line-numbers">&lt;<span class="pl-ent">init-param</span>&gt;
+  &lt;<span class="pl-ent">param-name</span>&gt;urlPattern&lt;/<span class="pl-ent">param-name</span>&gt;
+  &lt;<span class="pl-ent">param-value</span>&gt;customDomain&lt;/<span class="pl-ent">param-value</span>&gt;
+&lt;/<span class="pl-ent">init-param</span>&gt;
+&lt;<span class="pl-ent">init-param</span>&gt;
+  &lt;<span class="pl-ent">param-name</span>&gt;customDomainLangs&lt;/<span class="pl-ent">param-name</span>&gt;
+  &lt;<span class="pl-ent">param-value</span>&gt;www.site.co.jp:ja,www.site.com/english:en&lt;/<span class="pl-ent">param-value</span>&gt;
+&lt;/<span class="pl-ent">init-param</span>&gt;</code></pre>
+<h4>必須事項</h4>
+<p>
+  この設定パラメータは　<code>urlPattern</code> が
+  <code>customDomain</code>形式の場合のみ有効です。
+</p>
+<p>
+  この設定を使用する場合、<code>supportedLangs</code>で宣言されている各言語に対してカスタムドメインを指定する必要があります。
+</p>
+<p>
+  逆に、各カスタムドメインで指定した言語も
+  <code>supportedLangs</code>で示す必要がございます。
+</p>
+<p>
+  最後に、元々ある言語用に宣言されたパスは、基となるWebサーバの構造と一致する必要があります。<span
+    style="
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
+        Arial, sans-serif;
+    "
+    >つまり、この設定を使用して元言語のコンテンツリクエストパスを変更する事は出来ません。</span
+  >
+</p>
+<h2>&nbsp;</h2>
+<h3>debugMode</h3>
+<p>
+  デバッグログの出力が有効になります。<br />
+  <span
+    style="
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
+        Arial, sans-serif;
+    "
+    >有効にするには、以下の様に定義してください。</span
+  >
+</p>
+<pre><code class="language-xml line-numbers">&lt;<span class="pl-ent">init-param</span>&gt;
+  &lt;<span class="pl-ent">param-name</span>&gt;debugMode&lt;/<span class="pl-ent">param-name</span>&gt;
+  &lt;<span class="pl-ent">param-value</span>&gt;true&lt;/<span class="pl-ent">param-value</span>&gt;
+&lt;/<span class="pl-ent">init-param</span>&gt;</code></pre>
+<p>
+  このパラメータが有効な時、WOVN
+  Javaライブラリは２つのクエリパラメータが追加された状態で動作します。
+</p>
+<h4>wovnCacheDisable</h4>
+<p>
+  リクエストのサンプル：　https://example.com/page/top.html?wovnCacheDisable
+</p>
+<p>
+  <code>wovnCacheDisable</code>を使うと、WOVN
+  Javaライブラリは翻訳APIキャッシュをバイパスして動作し、<br />
+  常に翻訳が再処理されるようになります。これによりリクエストが遅くなりますが、更新された動作を確認する場合に有効です。
+</p>
+<h4>wovnDebugMode</h4>
+<p>リクエストのサンプル：　https://example.com/page/top.html?wovnDebugMode</p>
+<p>
+  <code>wovnDebugMode</code
+  >を使うと、サーバから送信されるレスポンスHTMLに埋め込まれたデバッグ情報が有効になります。
+</p>
+<p>
+  これは、サーバ上のWOVN
+  Javaライブラリで何が正しく機能していないのかを特定するためのものです。
+</p>
+<p>&nbsp;</p>
+<p>
+  上記２つのパラメータはdebugModeが有効になっている場合のみ使用される点についてご注意ください。
+</p>
+<p>&nbsp;</p>
+<h3>
+  <span>ignorePaths</span>
+</h3>
+<p>
+  <span>WOVN Java ライブラリでは、指定のパスを除外できます。</span>
+</p>
+<pre><code class="language-xml line-numbers">&lt;<span class="pl-ent">init-param</span>&gt;
+  &lt;<span class="pl-ent">param-name</span>&gt;ignorePaths&lt;/<span class="pl-ent">param-name</span>&gt;
+  &lt;<span class="pl-ent">param-value</span>&gt;/admin,/wp-admin&lt;/<span class="pl-ent">param-value</span>&gt;
+&lt;/<span class="pl-ent">init-param</span>&gt;</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;動作不具合に関するお問い合わせ</p>
+<p>
+  &nbsp;WOVN.javaをご利用の上でご不明な点や、動作しない点がある場合は、<a
+    href="https://wovn.io/ja/contact#technical"
+    target="_self"
+    >WOVNカスタマーサポートチームへお問い合わせください</a
+  >。
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
