@@ -22,4 +22,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             /bin/bash
-            echo 'hello!'
+            cd /usr/local/share/docker-compose/wovn-testing-site
+            git pull
+            docker-compose restart
