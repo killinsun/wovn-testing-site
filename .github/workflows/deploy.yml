@@ -14,12 +14,12 @@ jobs:
 
     steps:
       - name: Deploy
-        uses: fifsky/ssh-action@master
+        uses: appleboy/ssh-action@master
         with:
           host: killinsun.com
-          user: centos
+          username: centos
           port: 22
           key: ${{ secrets.SSH_KEY }}
-          command: |
+          script: |
             /bin/bash
             echo 'hello!'
