@@ -13,18 +13,13 @@ jobs:
         working-directory: ./
 
     steps:
-      - uses: actions/checkout@v3
       - name: Deploy
         uses: fifsky/ssh-action@master
-        env:
-          NVM_DIR: "~/.nvm"
         with:
           host: killinsun.com
           user: centos
           port: 22
           key: ${{ secrets.SSH_KEY }}
           command: |
+            /bin/bash
             echo 'hello!'
-
-
-
