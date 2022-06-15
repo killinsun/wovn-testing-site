@@ -27,10 +27,10 @@ const Layout: React.FC<Props> = (props) => {
         <Grid md={12} xs={12}>
           <Header />
         </Grid>
-        <Grid md={3} xs={0}>
+        <Grid md={3} sm={0}>
           <SideBar allPostSlugs={allPostSlugs} />
         </Grid>
-        <Grid md={9}>
+        <Grid md={9} sm={12}>
           <main className={utilStyle.mainContent}>{children}</main>
         </Grid>
       </Grid>
