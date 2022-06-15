@@ -1,0 +1,16 @@
+<p>
+  このページには、スマートホンなどの端末から閲覧している場合だけ表示されるコンテンツがあります。
+</p>
+
+<div id="only_sp_content">
+</div>
+
+<script>
+  if((navigator.userAgent.indexOf('iPhone') > 0) || (navigator.userAgent.indexOf('Android'))) {
+    const parent = document.getElementById("only_sp_content")
+    const child = document.createElement("p")
+    child.textContent = "こんにちはスマートフォンユーザーさん！"
+    parent.appendChild(child)
+  }
+
+</script>
