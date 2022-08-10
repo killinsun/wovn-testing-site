@@ -26,7 +26,7 @@ const Layout: React.FC<Props> = (props) => {
           {`!function(a){if(!a.Localize){a.Localize={};for(var e=["translate","untranslate","phrase","initialize","translatePage","setLanguage","getLanguage","getSourceLanguage","detectLanguage","getAvailableLanguages","untranslatePage","bootstrap","prefetch","on","off","hideWidget","showWidget"],t=0;t<e.length;t++)a.Localize[e[t]]=function(){}}}(window);`}
         </script>
         <script>
-          {`Localize.initialize({ key: '[[PROJECT_KEY]]', rememberLanguage: true, });`}
+          {`Localize.initialize({ key: 'npp8wK1UchWon', rememberLanguage: true, });`}
         </script>
       </Head>
       <Grid container>
