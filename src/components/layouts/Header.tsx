@@ -6,7 +6,7 @@ const Header: React.FC = () => (
   <header className={styles.header}>
     <h1>
       <Link href="/">
-        <a>WOVN Test Site on Next.js</a>
+        <a>Test Site on Next.js</a>
       </Link>
     </h1>
   </header>
