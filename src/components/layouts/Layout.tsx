@@ -22,7 +22,7 @@ const Layout: React.FC<Props> = (props) => {
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <script async src="https://global.localizecdn.com/localize.js"/>
-        <script src="https://j.wovn.io/1" data-wovnio="key=vguCpy" async />
+        <script src="https://j.wovn.io/1" data-wovnio="key=2fN2kx" async />
         <script>
           {`!function(a){if(!a.Localize){a.Localize={};for(var e=["translate","untranslate","phrase","initialize","translatePage","setLanguage","getLanguage","getSourceLanguage","detectLanguage","getAvailableLanguages","untranslatePage","bootstrap","prefetch","on","off","hideWidget","showWidget"],t=0;t<e.length;t++)a.Localize[e[t]]=function(){}}}(window);`}
         </script>
