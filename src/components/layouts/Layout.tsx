@@ -21,14 +21,7 @@ const Layout: React.FC<Props> = (props) => {
     <Container className={utilStyle.container}>
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
-        <script async src="https://global.localizecdn.com/localize.js"/>
-        <script src="https://j.wovn.io/1" data-wovnio="key=2fN2kx" async />
-        <script>
-          {`!function(a){if(!a.Localize){a.Localize={};for(var e=["translate","untranslate","phrase","initialize","translatePage","setLanguage","getLanguage","getSourceLanguage","detectLanguage","getAvailableLanguages","untranslatePage","bootstrap","prefetch","on","off","hideWidget","showWidget"],t=0;t<e.length;t++)a.Localize[e[t]]=function(){}}}(window);`}
-        </script>
-        <script>
-          {`Localize.initialize({ key: 'npp8wK1UchWon', rememberLanguage: true, });`}
-        </script>
+        <script src="https://j.dev-wovn.io/1" data-wovnio="key=cfCc81" async />
       </Head>
       <Grid container>
         <Grid md={12} xs={12}>
