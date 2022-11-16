@@ -22,8 +22,8 @@ const Layout: React.FC<Props> = (props) => {
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         {/* <script src="https://j.dev-wovn.io/1" data-wovnio="key=PbZlZg" async /> */}
-        <script src="https://j.wovn.io/1" data-wovnio="key=vguCpy" async />
-        {/* <script src="https://j.staging5-wovn.com/1" data-wovnio="key=NGzPth" async /> */}
+        {/* <script src="https://j.wovn.io/1" data-wovnio="key=vguCpy" async /> */}
+        <script src="https://j.staging5-wovn.com/1" data-wovnio="key=NGzPth" async />
       </Head>
       <Grid container>
         <Grid md={12} xs={12}>
