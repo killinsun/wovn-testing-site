@@ -46,8 +46,8 @@ const SideBar: React.FC<Props> = ({ allPostSlugs }) => {
             </ListItemText>
           </ListItemButton>
           <Collapse in={languageOpen} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding className="wovn-languages">
-              <ListItemButton sx={{ pl: 10}} className="wovn-switch-template">
+            <List component="div" disablePadding id="wovn-languages">
+              <ListItemButton sx={{ pl: 10}} id="wovn-switch-template">
                 <ListItemText>
                   wovn-lang-name
                 </ListItemText>
